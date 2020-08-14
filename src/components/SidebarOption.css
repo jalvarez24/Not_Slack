@@ -24,12 +24,24 @@
     border-radius: 15%;
 }
 
-.sidebarOption__channel {
-    padding: 10px 0;
+.sidebarOption__hash {
+    padding: 4px 8px;
+    margin-right: 10px;
+    margin-left: 40px;
+    width: 25px;
+    height: 25px;
+;   background-color:#88888845;
+    font-size: 16px;
+    border-radius: 15%;
 }
 
-.sidebarOption__hash {
-    padding: 10px;
+.sidebarOption__addChannel {
+    padding: 1px 1px;
+    margin: 10px 0;
+    margin-right: 10px;
+    margin-left: 40px;
+;   background-color:#88888845;
+    border-radius: 15%;
 }
 
 .sidebarOption > h3 {
@@ -57,17 +69,3 @@
 .arrow__Icon:hover {
     background-color: #88888845;
 }
-
-/* .folderArrowDown, .folderArrowRight {
-    transition: 0.20s;
-}
-
-.folderArrowDown:hover {
-    transform: rotate(-90deg); 
-    transition: 0.20s;
-}
-
-.folderArrowUp:hover {
-    transform: rotate(90deg); 
-    transition: 0.20s;
-} */
