@@ -1,0 +1,67 @@
+.header,
+.header__left,
+.header__middle,
+.header__right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+    justify-content: space-between;
+    padding: 10px 0;
+    background-color: var(--slack-color);
+    color: white;
+}
+
+.header__left {
+    flex: 0.3;
+    margin-left: 20px;
+}
+
+.head__left > .MuiSvgIcon-root {
+    margin-left: auto;
+    margin-right: 30px;
+}
+
+.header__middle {
+    flex: 0.4;
+    text-align: center;
+    padding: 0 50px;
+    color: white;
+    border: 1px #88888840 solid;
+    border-radius: 6px;
+    background-color: #88888820;
+    min-width: 35vw;
+}
+
+.header__middle:hover{
+    cursor: pointer;
+    background-color: #b5b5b520;
+    border: 1px #b5b5b570 solid;
+    color: white;
+}
+
+.header__middle > input {
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    padding: 10px;
+    color: white;
+    pointer-events: none;
+}
+
+.header__middle > input::placeholder{
+    color: white;
+}
+
+.header__right {
+    flex: 0.3;
+    align-items: flex-end;
+
+}
+
+.header__right > .MuiSvgIcon-root {
+    margin-left: auto;
+    margin-right: 20px;
+}
