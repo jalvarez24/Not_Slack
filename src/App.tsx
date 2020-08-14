@@ -1,14 +1,27 @@
-import React from 'react';
-import Header from './components/Header';
-import Sidebar from './components/Sidebar';
-import './App.css';
+import React from 'react'
+import Header from './components/Header'
+import Sidebar from './components/Sidebar'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Chat from './components/Chat'
+import './App.css'
 
 const App: React.FC = () => {
-  return <div className="App">
-    <Header text={"Not-Slack"}/>
-    <div className="app__body">
-      <Sidebar />
-    </div>
+  return <div className='App'>
+    <Router>
+      <Header />
+      <div className='app__body'>
+        <Sidebar />
+
+        <Switch>
+          <Route path='/room/:roomId'>
+            <Chat />
+          </Route>
+          <Route path='/'>
+            <h1>Welcome</h1>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   </div>;
 }
 
