@@ -1,0 +1,73 @@
+
+.sidebarOption {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    padding-left: 2px;
+    cursor: pointer;
+}
+
+.sidebarOption:hover {
+    background-color: var(--slack-color);
+}
+
+.sidebarOption__icon {
+    padding: 10px;
+    font-size: 25px !important;
+}
+
+.arrow__icon:hover {
+    padding: 1px;
+    margin: 9px;
+    background-color: #88888845;
+    border-radius: 15%;
+}
+
+.sidebarOption__channel {
+    padding: 10px 0;
+}
+
+.sidebarOption__hash {
+    padding: 10px;
+}
+
+.sidebarOption > h3 {
+    font-weight: 500;
+}
+
+.addIcon__icon {
+    visibility: hidden;
+    position: absolute;
+    right: 10px;
+}
+
+.addIcon__icon:hover {
+    background-color: #88888845;
+}
+
+.sidebarOption:hover > .addIcon__icon {
+    visibility: visible;
+}
+
+.disableHover:hover {
+    background-color: var(--slack-color-light);
+}
+
+.arrow__Icon:hover {
+    background-color: #88888845;
+}
+
+/* .folderArrowDown, .folderArrowRight {
+    transition: 0.20s;
+}
+
+.folderArrowDown:hover {
+    transform: rotate(-90deg); 
+    transition: 0.20s;
+}
+
+.folderArrowUp:hover {
+    transform: rotate(90deg); 
+    transition: 0.20s;
+} */
