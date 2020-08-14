@@ -3,6 +3,8 @@
     user-select: none;
     background-color: var(--slack-color);
     border-top: 1px solid #b5b5b570;
+    flex: 0.3;
+    min-width: 240px;
     max-width: 260px;
     color: white;
     background-color: var(--slack-color-light);

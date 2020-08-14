@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './Sidebar.css'
 import SidebarOption from './SidebarOption'
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 import Tooltip from '@material-ui/core/Tooltip'
+import db from '../firebase'
 
 //icons
 import CreateIcon from '@material-ui/icons/Create'
@@ -17,7 +18,30 @@ import FileCopyIcon from '@material-ui/icons/FileCopy'
 interface Props {
 }
 
+interface RoomProps {
+    id: string;
+    name: string;
+}
+
 const Sidebar: React.FC = () => {
+
+    const [channels, setChannels]= useState<RoomProps[] | null>(null);
+
+    useEffect(() => {
+        db.collection('rooms').onSnapshot(snapshot => ((
+            setChannels(
+                snapshot.docs.map((doc) =>({
+                    id: doc.id,
+                    name: doc.data().name,
+                }))
+            )
+        )))
+    }, [])
+
+    useEffect(() => {
+        console.log({channels})
+    }, [channels])
+
     return <div className='sidebar'>
         <div className='sidebar__header'>
             <div className="sidebar__info">
@@ -31,14 +55,19 @@ const Sidebar: React.FC = () => {
                 <CreateIcon />
             </Tooltip>
         </div>
-        <SidebarOption Icon={InsertCommentIcon} title='Add channel' />
-        <SidebarOption Icon={InboxIcon} title='Add channel' />
-        <SidebarOption Icon={DraftsIcon} title='Add channel' />
-        <SidebarOption Icon={BookmarkBorderIcon} title='Add channel' />
-        <SidebarOption Icon={PeopleAltIcon} title='Add channel' />
-        <SidebarOption Icon={AppsIcon} title='Add channel' />
+        <SidebarOption Icon={InsertCommentIcon} title='All unreads' />
+        <SidebarOption Icon={InboxIcon} title='All DMs' />
+        <SidebarOption Icon={DraftsIcon} title='Drafts' />
+        <SidebarOption Icon={BookmarkBorderIcon} title='Saved items' />
+        <SidebarOption Icon={PeopleAltIcon} title='People & user groups' />
+        <SidebarOption Icon={AppsIcon} title='Apps' />
         <hr />
         <SidebarOption title='Channels' toolTipText='Add channels' folder />
+        {channels && channels.map((channel, index) => {
+            return <SidebarOption title={channel.name} key={index} id={channel.id} />         
+        })
+        }
+        <SidebarOption title='Add Channels' toolTipText='Add channels' addChannelsOpt /> 
         <hr />
         <SidebarOption title='Direct Messages' toolTipText='Open a direct message' folder />
     </div>;
