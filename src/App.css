@@ -1,3 +1,8 @@
+.app{
+
+}
+
 body {
-  --slack-color: #4A154B;
+  --slack-color: #451246;
+  --slack-color-light: #551b57;
 }
