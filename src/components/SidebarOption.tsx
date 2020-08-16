@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './SidebarOption.css'
 import AddIcon from '@material-ui/icons/Add'
 import { useHistory } from 'react-router-dom'
 import db from '../firebase'
+import { useParams } from 'react-router-dom'
 
 //icons
 import ArrowRightIcon from '@material-ui/icons/ArrowRight'
@@ -16,22 +17,24 @@ interface Props {
     toolTipText?: string;
     addChannelsOpt?: boolean;
     id?: string;
+    folderOpen?: boolean;
+    setFolderOpen?: any;
 }
 
-const SidebarOption: React.FC<Props> = ({ Icon, title, folder = false, toolTipText, addChannelsOpt = false, id}) => {
-
-    const [tabOpen, setTabOpen] = useState(false)
+const SidebarOption: React.FC<Props> = ({ Icon = null, title, folder = false, toolTipText, addChannelsOpt = false, id, folderOpen, setFolderOpen}) => {
 
     const updateFolderOpen = () => {
-         setTabOpen(!tabOpen)
+        setFolderOpen(!folderOpen)
     }
 
     const addChannel = () => {
-        let channelName = prompt('Please enter channel name')
-        if(channelName) {
-            db.collection('rooms').add({
-                name: channelName,
-            })
+        if(toolTipText === 'Add channels' || addChannelsOpt) {
+            let channelName = prompt('Please enter channel name')
+            if(channelName && channelName?.trim().length > 0) {
+                db.collection('rooms').add({
+                    name: channelName,
+                })
+            }
         }
     }
 
@@ -52,6 +55,7 @@ const SidebarOption: React.FC<Props> = ({ Icon, title, folder = false, toolTipTe
         :
         'sidebarOption'
     }
+
     onClick={folder? updateFolderOpen : addChannelsOpt? addChannel : selectChannel} 
     >
         {Icon && <Icon className='sidebarOption__icon' />}
@@ -64,7 +68,7 @@ const SidebarOption: React.FC<Props> = ({ Icon, title, folder = false, toolTipTe
             folder ?
                 <>
                     {
-                    tabOpen ?
+                    folderOpen ?
                     <ArrowDownIcon className='sidebarOption__icon arrow__icon' /> 
                     :
                     <ArrowRightIcon className='sidebarOption__icon arrow__icon' /> 

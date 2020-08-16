@@ -30,7 +30,7 @@
     margin-left: 40px;
     width: 25px;
     height: 25px;
-;   background-color:#88888845;
+;   background-color:#d0d0d025;
     font-size: 16px;
     border-radius: 15%;
 }
@@ -68,4 +68,8 @@
 
 .arrow__Icon:hover {
     background-color: #88888845;
+}
+
+.channel__selected {
+    background-color: var(--slack-color);
 }
