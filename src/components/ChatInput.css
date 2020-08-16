@@ -1,0 +1,58 @@
+.chatInput {
+    border-radius: 20px;
+}
+
+.chatInput > form {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.chatInput > form > input {
+    position: fixed;
+    bottom: 30px;
+    width: 60%;
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 20px;
+}
+/* .characterCount {
+    position: fixed;
+    bottom: 30px;
+    right: 10%;
+    left: 260px;
+    width: 62%;
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 5px;
+    margin-left: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: green;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+} */
+
+.characterCount > span {
+    background-color: var(--slack-color-light);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.chatInput > form > button {
+    display: none !important;
+}
+
+.characterCount {
+    color: var(--slack-color); 
+    color: white; 
+    position: absolute;
+    bottom: 15px;
+    right: 12.5%;
+    font-size: small;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
