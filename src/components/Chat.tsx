@@ -3,6 +3,7 @@ import Message from './Message'
 import './Chat.css'
 import { useParams } from 'react-router-dom'
 import db from '../firebase'
+import ChatInput from './ChatInput';
 
 //icons
 import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined'
@@ -14,7 +15,7 @@ interface Props {
 
 const Chat: React.FC = () => {
 
-    const { roomId } = useParams()
+    const {roomId} = useParams()
     const [roomDetails, setRoomDetails] = useState<any>(null)
     const [roomMessages, setRoomMessages] = useState<any>([])
 
@@ -33,6 +34,7 @@ const Chat: React.FC = () => {
     useEffect(() => {
         if(!roomId) return;
         db.collection('rooms').doc(roomId).onSnapshot(snapshot => {
+            if(!snapshot.exists) return;
             setRoomDetails(snapshot.data())
         })
 
@@ -74,6 +76,7 @@ const Chat: React.FC = () => {
             })
             }
         </div>
+        <ChatInput channelName={roomDetails?.name} channelId={roomId}/>
     </div>;
 }
 
