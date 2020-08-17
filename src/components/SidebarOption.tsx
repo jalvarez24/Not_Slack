@@ -3,12 +3,13 @@ import './SidebarOption.css'
 import AddIcon from '@material-ui/icons/Add'
 import { useHistory } from 'react-router-dom'
 import db from '../firebase'
-import { useParams } from 'react-router-dom'
+import Modal from 'react-modal'
 
 //icons
 import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 import ArrowDownIcon from '@material-ui/icons/ArrowDropDown'
 import Tooltip from '@material-ui/core/Tooltip'
+import { Button } from '@material-ui/core'
 
 interface Props {
     Icon?: any;
@@ -27,15 +28,36 @@ const SidebarOption: React.FC<Props> = ({ Icon = null, title, folder = false, to
         setFolderOpen(!folderOpen)
     }
 
+    const [addChannelModalOpen, setAddChannelModalOpen] = useState(false)
+
+    const [createChannelInput, setCreateChannelInput] = useState('')
+
+    useEffect(() => {
+        if(createChannelInput.trim().length >20) setCreateChannelInput(createChannelInput.trim().substring(0, 20)) 
+    }, [createChannelInput])
+
     const addChannel = () => {
-        if(toolTipText === 'Add channels' || addChannelsOpt) {
-            let channelName = prompt('Please enter channel name')
-            if(channelName && channelName?.trim().length > 0) {
+        setAddChannelModalOpen(true)
+        // if(toolTipText === 'Add channels' || addChannelsOpt) {
+        //     let channelName = prompt('Please enter channel name')
+        //     if(channelName && channelName?.trim().length > 0) {
+        //         db.collection('rooms').add({
+        //             name: channelName,
+        //         })
+        //     }
+        // }
+    }
+
+    const createChannel = () => {
+        if(createChannelInput.trim().length > 0)
+            if(createChannelInput[0] == '#') setCreateChannelInput(createChannelInput.substr(1, createChannelInput.length))
+            else {
                 db.collection('rooms').add({
-                    name: channelName,
+                    name: createChannelInput,
                 })
+                setAddChannelModalOpen(false)
+                //Redirect to the new room
             }
-        }
     }
 
     const history = useHistory();
@@ -56,7 +78,7 @@ const SidebarOption: React.FC<Props> = ({ Icon = null, title, folder = false, to
         'sidebarOption'
     }
 
-    onClick={folder? updateFolderOpen : addChannelsOpt? addChannel : selectChannel} 
+    onClick={folder? updateFolderOpen : addChannelsOpt? addChannel : Icon ? undefined : selectChannel} 
     >
         {Icon && <Icon className='sidebarOption__icon' />}
         {Icon ? (
@@ -96,9 +118,38 @@ const SidebarOption: React.FC<Props> = ({ Icon = null, title, folder = false, to
        <Tooltip title={ <span style={{fontSize: '18px'}}>{toolTipText}</span> } 
        className='iconContainer' 
        arrow>
-               <AddIcon className='addIcon__icon' onClick={(e) => {e.stopPropagation();addChannel();}} />
+               <AddIcon className='addIcon__icon' onClick={(e) => {addChannel();e.stopPropagation();}} />
        </Tooltip>
        }
+       <Modal
+          isOpen={addChannelModalOpen}
+          onRequestClose={() =>{setAddChannelModalOpen(false)}}
+          className='modal'
+          style={{overlay: {backgroundColor: '#1a1a1a30'}}}
+        //   shouldCloseOnOverlayClick={false}
+        //   onClick = {(e) => {(e.preventDefault(); e.stopPropagation();)}}
+          onClick = {(e) => {console.log("Detected")}}
+        >
+            <div className='ownOverlay' 
+            onClick={(e) => {e.preventDefault(); e.stopPropagation();}}>
+                <div className='modal__container'>
+                    <div className='modal__container__header'>
+                        <h2>Create a channel</h2>
+                        <h3 onClick={() => setAddChannelModalOpen(false)}>
+                            <span>ESC</span> to close 
+                        </h3>
+                    </div>
+                    <p>Channels are where your team communications. They're best when organized around a topic - #marketing, for example.</p>
+                    <form onSubmit={(e) => e.preventDefault()}>
+                        <input type="text" value={createChannelInput} onChange={(e) => setCreateChannelInput(e.target.value)} placeholder='# e.g. plan-budget' autoFocus
+                        onKeyPress={(e) => {e.keyCode == 13 && e.preventDefault()}}
+                        
+                        />
+                        <Button onClick={createChannel} className='createButton' >Create</Button>
+                    </form>
+                </div>
+            </div>
+        </Modal>
     </div>;
 }
 
