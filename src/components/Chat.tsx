@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Message from './Message'
 import './Chat.css'
-import { useParams } from 'react-router-dom'
+import { useParams, Redirect} from 'react-router-dom'
 import db from '../firebase'
 import ChatInput from './ChatInput';
 
@@ -18,6 +18,7 @@ const Chat: React.FC = () => {
     const {roomId} = useParams()
     const [roomDetails, setRoomDetails] = useState<any>(null)
     const [roomMessages, setRoomMessages] = useState<any>([])
+    const [redirect, setRedirect] = useState(false)
 
     useEffect(() => {
         if(roomDetails)
@@ -32,9 +33,10 @@ const Chat: React.FC = () => {
     }, [roomMessages])    
 
     useEffect(() => {
+        console.log({roomId})
         if(!roomId) return;
         db.collection('rooms').doc(roomId).onSnapshot(snapshot => {
-            if(!snapshot.exists) return;
+            if(!snapshot.exists) setRedirect(true)
             setRoomDetails(snapshot.data())
         })
 
@@ -50,34 +52,39 @@ const Chat: React.FC = () => {
         
     }, [roomId])
 
-    return <div className='chat'>
-        <div className="chat__header">
-            <div className="chat__headerLeft">
-                <h4 className="chat__channelName">
-                    <strong>#{roomDetails?.name}</strong>
-                    <StarBorderOutlinedIcon />
-                </h4>
+    return(
+        redirect ?
+        <Redirect to='/' />
+        :
+        <div className='chat'>
+            <div className="chat__header">
+                <div className="chat__headerLeft">
+                    <h4 className="chat__channelName">
+                        <strong>#{roomDetails?.name}</strong>
+                        <StarBorderOutlinedIcon />
+                    </h4>
+                </div>
+                <div className="chat__headerRight">
+                    <p>
+                        <InfoOutlinedIcon />Details
+                    </p>
+                </div>
             </div>
-            <div className="chat__headerRight">
-                <p>
-                    <InfoOutlinedIcon />Details
-                </p>
+            <div className="chat__messages">
+                {roomMessages.map(({ message, timestamp, user, userImage}, index) => {
+                    return <Message
+                    key={index}
+                    message={message}
+                    timestamp={timestamp}
+                    user={user}
+                    userImage={userImage}
+                    />
+                })
+                }
             </div>
+            <ChatInput channelName={roomDetails?.name} channelId={roomId}/>
         </div>
-        <div className="chat__messages">
-            {roomMessages.map(({ message, timestamp, user, userImage}, index) => {
-                return <Message
-                key={index}
-                message={message}
-                timestamp={timestamp}
-                user={user}
-                userImage={userImage}
-                />
-            })
-            }
-        </div>
-        <ChatInput channelName={roomDetails?.name} channelId={roomId}/>
-    </div>;
+    )
 }
 
 export default Chat
