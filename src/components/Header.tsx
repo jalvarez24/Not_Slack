@@ -22,7 +22,7 @@ const Header: React.FC = () => {
         </div>
         <div className='header__middle'>
             <SearchIcon />
-            <input placeholder='Search Awesome Team'></input>
+            <input placeholder={user?.displayName}></input>
         </div>
         <div className="header__right">
             <Tooltip title={<span style={{fontSize: '18px'}}>Help</span>} className='iconContainer' arrow>
