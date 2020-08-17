@@ -1,0 +1,35 @@
+.home {
+    flex: 0.7;
+    flex-grow: 1;
+    overflow-y: scroll;
+    margin-bottom: 150px;
+}
+
+.home__body {
+    background-color: blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+
+.home__body div:first-of-type {
+    font-size: 60px;
+}
+
+.home__body img {
+    width: 150px;
+    height: auto;
+}
+
+.logoAndName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoAndName > div {
+    font-size: 188px;
+    margin-left: 20px;
+}
