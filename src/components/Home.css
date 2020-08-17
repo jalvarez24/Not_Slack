@@ -6,7 +6,7 @@
 }
 
 .home__body {
-    background-color: blue;
+    margin-top: 10vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,8 +14,8 @@
     font-size: 18px;
 }
 
-.home__body div:first-of-type {
-    font-size: 60px;
+.welcomeTo {
+    font-size: 80px;
 }
 
 .home__body img {
@@ -30,6 +30,6 @@
 }
 
 .logoAndName > div {
-    font-size: 188px;
+    font-size: 140px;
     margin-left: 20px;
 }

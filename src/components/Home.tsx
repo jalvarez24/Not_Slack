@@ -21,15 +21,15 @@ const Home: React.FC = () => {
             </div>
         </div>
         <div className="home__body">
-            <div>Welcome to</div>
+            <div className='welcomeTo'>Welcome to</div>
             <div className='logoAndName'>
                 <img src={Logo512} alt='' />
                 <div>Not-Slack</div>
             </div>
-            <ul>
-                Slack clone implemented with:
+            <ul className='list'>
+                <h3>Slack clone implemented with:</h3>
                 <li><span>Front-End:</span> React and TypeScript</li>
-                <li>-<span>Back-End:</span> Firebase</li>
+                <li><span>Back-End:</span> Firebase</li>
             </ul>
         </div>
     </div>;
