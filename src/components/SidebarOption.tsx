@@ -118,7 +118,7 @@ const SidebarOption: React.FC<Props> = ({ Icon = null, title, folder = false, to
        <Tooltip title={ <span style={{fontSize: '18px'}}>{toolTipText}</span> } 
        className='iconContainer' 
        arrow>
-               <AddIcon className='addIcon__icon' onClick={(e) => {addChannel();e.stopPropagation();}} />
+               <AddIcon className='addIcon__icon' onClick={title !== 'Direct Messages' ? (e) => {addChannel();e.stopPropagation();} : (e) => e.stopPropagation()} />
        </Tooltip>
        }
        <Modal
@@ -145,7 +145,7 @@ const SidebarOption: React.FC<Props> = ({ Icon = null, title, folder = false, to
                         onKeyPress={(e) => {e.keyCode == 13 && e.preventDefault()}}
                         
                         />
-                        <Button onClick={createChannel} className='createButton' >Create</Button>
+                        <Button onClick={createChannel}>Create</Button>
                     </form>
                 </div>
             </div>
