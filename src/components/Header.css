@@ -93,6 +93,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+}
+
+.avatar__container:hover .head__avatar{
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.4);
 }
 
 .head__avatar {
