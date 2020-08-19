@@ -5,6 +5,7 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 import Tooltip from '@material-ui/core/Tooltip'
 import db from '../firebase'
 import { useStateValue } from './StateProvider'
+import SignOutModal from './SignOutModal'
 
 //icons
 import CreateIcon from '@material-ui/icons/Create'
@@ -32,7 +33,7 @@ const Sidebar: React.FC = () => {
     const [channelsOpen, setChannelsOpen] = useState(true)
     const [directMessagesOpen, setDirectMessagesOpen] = useState(true)
 
-    const [activeTab, setActiveTab] = useState(null)
+    const [signOutModalOn, setSignOutModalOn] = useState(false)
 
     useEffect(() => {
         db.collection('rooms').onSnapshot(snapshot => ((
@@ -45,16 +46,17 @@ const Sidebar: React.FC = () => {
         )))
     }, [])
 
+
     return <div className='sidebar'>
-        <div className='sidebar__header'>
+        <div className='sidebar__header' onClick={()=>setSignOutModalOn(true)}>
             <div className="sidebar__info">
-                <h2>Display Name </h2>
+                <h2>{user?.displayName}</h2>
                 <h3>
                     <FiberManualRecordIcon />
-                    {user?.displayName}
+                    {user?.email}
                 </h3>
             </div>
-            <Tooltip title={<span style={{fontSize: '18px'}}>New message</span>} className='iconContainer' arrow>
+            <Tooltip title={<span style={{fontSize: '18px'}}>New message</span>} className='iconContainer' arrow onClick={(e)=>e.stopPropagation()}>
                 <CreateIcon />
             </Tooltip>
         </div>
@@ -76,6 +78,9 @@ const Sidebar: React.FC = () => {
         </div>
         <hr />
         <SidebarOption title='Direct Messages' toolTipText='Open a direct message' folder folderOpen={directMessagesOpen} setFolderOpen={setDirectMessagesOpen} />
+        { signOutModalOn &&
+            <SignOutModal isOpen={signOutModalOn} onRequestClose={setSignOutModalOn}/>
+        }
     </div>;
 }
 
