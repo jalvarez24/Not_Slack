@@ -21,19 +21,6 @@ const Chat: React.FC = () => {
     const [redirect, setRedirect] = useState(false)
 
     useEffect(() => {
-        if(roomDetails)
-        console.log(roomDetails)
-
-    }, [roomDetails])
-
-    useEffect(() => {
-        if(roomMessages)
-        console.log({roomMessages})
-
-    }, [roomMessages])    
-
-    useEffect(() => {
-        console.log({roomId})
         if(!roomId) return;
         db.collection('rooms').doc(roomId).onSnapshot(snapshot => {
             if(!snapshot.exists) setRedirect(true)

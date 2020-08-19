@@ -3,7 +3,6 @@ import './ChatInput.css'
 import { Button } from '@material-ui/core'
 import db from '../firebase'
 import firebase from 'firebase'
-import { userInfo } from 'os'
 import { useStateValue } from './StateProvider'
 
 interface Props {
