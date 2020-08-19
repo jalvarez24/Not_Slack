@@ -40,17 +40,20 @@ const SignOutModal: React.FC<Props> = ({ isOpen, onRequestClose }) => {
                     </h3>
                 </div>
                 <div className='userDetails'>
-                    <h2>Data used by Slack Clone:</h2>
+                    <h3>Data used by Slack Clone:</h3>
                     <div className='userTypeSection'>
                         <span style={{fontWeight: 'bold'}}>Google Display Name: </span>
                         {user?.displayName}
                     </div>
                     <div className='userTypeSection'>
                         <span style={{fontWeight: 'bold'}}>Google Photo:</span> 
-                        <img src={user?.photoURL} style={{width: '75px', height: 'auto'}} />
+                        <img src={user?.photoURL} alt={user?.displayName} style={{width: '60px', height: 'auto'}} />
                     </div>
                     <div className='userTypeSection'>
-                        <span style={{fontWeight: 'bold', textDecoration: 'underline'}}>Your email is never shown or saved</span>
+                        <span style={{fontWeight: 'bold', textDecoration: 'underline', fontSize: '14px'}}>Your email is never shown to other users or saved</span>
+                    </div>
+                    <div className='userTypeSection'>
+                        <span style={{fontWeight: 'bold', textDecoration: 'underline', padding: '0 20px', fontSize: '14px'}}>Your display name and photo are only seen on messages you've posted</span>
                     </div>
                 </div>
                 <Button onClick={()=>signOut()} className='signOutButton'>Sign Out</Button>
