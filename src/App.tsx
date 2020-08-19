@@ -1,27 +1,63 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+// import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Chat from './components/Chat'
 import Login from './components/Login'
 import { useStateValue } from './components/StateProvider'
 import Home from './components/Home'
+import { auth } from './firebase';
+import { actionTypes } from './components/reducer'
 import './App.css'
+import Loader from 'react-loader-spinner'
+
 
 const App: React.FC = () => {
 
-  const [{ user }] = useStateValue()
+  const [{ user }, dispatch] = useStateValue()
+
+  const [alreadyAuthenticated, setAlreadyAuthenticated] = useState<boolean | null>(null)
+
+  useEffect(() => {
+    const listener = auth.onAuthStateChanged((user) =>{
+      if(user) setAlreadyAuthenticated(true)
+      else setAlreadyAuthenticated(false)
+    })
+  }, [])
+  
+  
+  useEffect(() => {
+    const listener = auth.onAuthStateChanged((user) =>{
+      if(user) {
+        dispatch({
+          type: actionTypes.SET_USER,
+          user: user
+        })
+      }
+    })
+  }, [])
 
   return <div className='App'>
     <Router>
-      {!user ? 
+      {alreadyAuthenticated === null ?
+      <div className='loadingScreen'>
+        <Loader 
+          type='TailSpin'
+          color='lightgrey'
+          height={'50vh'}
+          width={'50vh'}
+          timeout={3000}
+        />
+      </div>
+      :
+      !alreadyAuthenticated ? 
       <Login />
       :
       <>
         <Header />
         <div className='app__body'>
           <Sidebar />
-
           <Switch>
             <Route path='/room/:roomId'>
               <Chat />
@@ -29,7 +65,6 @@ const App: React.FC = () => {
             <Route path='/'>
               <Home />
             </Route>
-            <Redirect to='/' />
           </Switch>
         </div>
       </>
