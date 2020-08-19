@@ -1,7 +1,5 @@
 import React from 'react'
 import './Home.css'
-import SidebarOption from './SidebarOption'
-import db from '../firebase'
 import Logo512 from '../logos/logo512.png'
 
 interface Props {

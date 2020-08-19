@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useReducer } from 'react'
-import { initialState } from './reducer'
 
 export const StateContext = createContext<any>(undefined)
 

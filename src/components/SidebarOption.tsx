@@ -38,25 +38,16 @@ const SidebarOption: React.FC<Props> = ({ Icon = null, title, folder = false, to
 
     const addChannel = () => {
         setAddChannelModalOpen(true)
-        // if(toolTipText === 'Add channels' || addChannelsOpt) {
-        //     let channelName = prompt('Please enter channel name')
-        //     if(channelName && channelName?.trim().length > 0) {
-        //         db.collection('rooms').add({
-        //             name: channelName,
-        //         })
-        //     }
-        // }
     }
 
     const createChannel = () => {
         if(createChannelInput.trim().length > 0)
-            if(createChannelInput[0] == '#') setCreateChannelInput(createChannelInput.substr(1, createChannelInput.length))
+            if(createChannelInput[0] === '#') setCreateChannelInput(createChannelInput.substr(1, createChannelInput.length))
             else {
                 db.collection('rooms').add({
                     name: createChannelInput,
                 })
                 setAddChannelModalOpen(false)
-                //Redirect to the new room
             }
     }
 
@@ -126,8 +117,6 @@ const SidebarOption: React.FC<Props> = ({ Icon = null, title, folder = false, to
           onRequestClose={() =>{setAddChannelModalOpen(false)}}
           className='modal'
           style={{overlay: {backgroundColor: '#1a1a1a30'}}}
-        //   shouldCloseOnOverlayClick={false}
-        //   onClick = {(e) => {(e.preventDefault(); e.stopPropagation();)}}
           onClick = {(e) => {console.log("Detected")}}
         >
             <div className='ownOverlay' 
@@ -142,7 +131,7 @@ const SidebarOption: React.FC<Props> = ({ Icon = null, title, folder = false, to
                     <p>Channels are where your team communications. They're best when organized around a topic - #marketing, for example.</p>
                     <form onSubmit={(e) => e.preventDefault()}>
                         <input type="text" value={createChannelInput} onChange={(e) => setCreateChannelInput(e.target.value)} placeholder='# e.g. plan-budget' autoFocus
-                        onKeyPress={(e) => {e.keyCode == 13 && e.preventDefault()}}
+                        onKeyPress={(e) => {e.keyCode === 13 && e.preventDefault()}}
                         
                         />
                         <Button onClick={createChannel}>Create</Button>

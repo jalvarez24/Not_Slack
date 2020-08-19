@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Login.css'
 import { auth, provider } from '../firebase';
 import { useStateValue } from './StateProvider';
@@ -14,7 +14,6 @@ interface Props {
 const Login: React.FC = () => {
 
     const [{ user }, dispatch] = useStateValue()
-    // console.log({stateValue})
 
     const signIn = () => {
         auth.signInWithPopup(provider)

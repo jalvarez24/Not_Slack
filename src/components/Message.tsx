@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import './Message.css'
-import { useParams } from 'react-router-dom'
-import db from '../firebase'
 
 //icons
-
 interface Props {
     message: string;
     timestamp: Object;

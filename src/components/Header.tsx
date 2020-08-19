@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './Header.css'
 import { useStateValue } from './StateProvider'
-import { auth } from '../firebase'
 import SignOutModal from './SignOutModal'
 
 //ui
