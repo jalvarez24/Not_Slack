@@ -22,7 +22,7 @@ const SignOutModal: React.FC<Props> = ({ isOpen, onRequestClose }) => {
             console.error(e)
         })
     }
-    console.log({user})
+
     return(<Modal
         isOpen={isOpen}
         onRequestClose={() =>{onRequestClose(false)}}

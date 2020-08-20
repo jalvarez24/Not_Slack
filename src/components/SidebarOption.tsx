@@ -49,6 +49,7 @@ const SidebarOption: React.FC<Props> = ({ Icon = null, title, folder = false, to
                 })
                 setAddChannelModalOpen(false)
             }
+        setCreateChannelInput('')
     }
 
     const history = useHistory();
@@ -114,7 +115,7 @@ const SidebarOption: React.FC<Props> = ({ Icon = null, title, folder = false, to
        }
        <Modal
           isOpen={addChannelModalOpen}
-          onRequestClose={() =>{setAddChannelModalOpen(false)}}
+          onRequestClose={() =>{setAddChannelModalOpen(false); setCreateChannelInput('')}}
           className='modal'
           style={{overlay: {backgroundColor: '#1a1a1a30'}}}
           onClick = {(e) => {console.log("Detected")}}
