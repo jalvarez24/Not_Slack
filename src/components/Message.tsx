@@ -1,5 +1,6 @@
 import React from 'react'
 import './Message.css'
+import { Avatar } from '@material-ui/core';
 
 //icons
 interface Props {
@@ -12,7 +13,9 @@ interface Props {
 
 const Message: React.FC<any> = ({ message, timestamp, user, userImage }) => {
     return <div className='message'>
-        <img src={userImage} alt=''/>
+        <Avatar 
+        className='MuiAvatar-rounded'
+        src={userImage} />
         <div className="message__info">
             <h4>{user}
                 <span className='message__timestamp'>
